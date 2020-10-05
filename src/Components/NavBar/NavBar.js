@@ -88,9 +88,11 @@ const NavBar = () => {
                     </Button>
                   </>
                 )}
-                <Button variant="contained" className={`${classes.Admin} `}>
-                  Admin in
-                </Button>
+                <Link to="/dashboard/admin">
+                  <Button variant="contained" className={`${classes.Admin} `}>
+                    Admin in
+                  </Button>
+                </Link>
               </ul>
               <Toolbar className={`nav_icon ${classes.mobile}`}>
                 <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => toggleSlider("bottom", true)}>

@@ -45,25 +45,31 @@ function VolunteersActivist() {
   return (
     <Container className={classes.activistContainer}>
       <Grid container spacing={2}>
-        {!activities
-          ? null
-          : activities.map((activity, index) => (
-              <Grid item md={3} key={activity._id}>
-                {/* `/register/${activity.heading}` */}
-                <Link to={{ pathname: `/register/${activity.heading}`, search: `?sort=${activity.img}` }}>
-                  <Grid container>
-                    <Grid item xs={12} className={classes.img}>
-                      <img src={activity.img} alt="activist Img" />
-                    </Grid>
-                    <Grid item xs={12} style={{ backgroundColor: color[randomNumGen() + 0] }} className={`${classes.heading} `}>
-                      <Typography variant="h6" gutterBottom>
-                        {activity.heading}
-                      </Typography>
-                    </Grid>
+        {!activities ? (
+          <Grid container alignItems="center" justify="center">
+            <Grid item xs={12} style={{ textAlign: "center" }}>
+              <img style={{ width: "200px" }} src="https://media.giphy.com/media/VseXvvxwowwCc/giphy.gif" />
+            </Grid>
+          </Grid>
+        ) : (
+          activities.map((activity, index) => (
+            <Grid item xs={3} key={activity._id}>
+              {/* `/register/${activity.heading}` */}
+              <Link to={{ pathname: `/register/${activity.heading}`, search: `?sort=${activity.img}` }}>
+                <Grid container>
+                  <Grid item xs={12} className={classes.img}>
+                    <img src={activity.img} alt="activist Img" />
                   </Grid>
-                </Link>
-              </Grid>
-            ))}
+                  <Grid item xs={12} style={{ backgroundColor: color[randomNumGen() + 0] }} className={`${classes.heading} `}>
+                    <Typography variant="h6" gutterBottom>
+                      {activity.heading}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Link>
+            </Grid>
+          ))
+        )}
       </Grid>
     </Container>
   );

@@ -36,11 +36,13 @@ function SingleUserInfo() {
   const classes = SingleUserInfoStyle();
   const [userInfos, setUserInfos] = useState();
   const user = useContext(UserInfoContext);
-  const { userInfo, setUserInfo } = user;
+  const { userInfo } = user;
   const email = userInfo.email;
+
+  // to load the user data
   useEffect(() => {
     axios.get("https://volunteernetworkbyreact.herokuapp.com/getUserActivities?email=" + email).then((res) => setUserInfos(res.data));
-  }, []);
+  }, [userInfos]);
 
   //   to remove item
   const RemoveBtn = (id) => {
@@ -56,38 +58,43 @@ function SingleUserInfo() {
       <Grid container>
         <Grid item xs={12}>
           <Grid container spacing={2} alignItems="center" justify="center">
-            {!userInfos
-              ? null
-              : userInfos.map((userInfo) => (
-                  <Grid item xs={5} key={userInfo._id}>
-                    <Paper component="div" className={classes.userActivity}>
-                      <Grid container>
-                        <Grid item xs={12}>
-                          <Grid container>
-                            <Grid item xs={4} className={classes.userImgContainer}>
-                              <img style={{ width: "100%" }} src={userInfo.img} alt="img" />
-                            </Grid>
-                            <Grid item xs={8} className={classes.userInfoContainer}>
-                              <Typography variant="h5" gutterBottom>
-                                {userInfo.heading}
-                              </Typography>
-                              <Typography variant="subtitle1" gutterBottom>
-                                Email :{userInfo.email}
-                              </Typography>
-                              <Typography variant="h6" gutterBottom>
-                                Date :{userInfo.date}
-                              </Typography>
-
-                              <Button onClick={() => RemoveBtn(userInfo._id)} className={classes.removeBtn}>
-                                Remove
-                              </Button>
-                            </Grid>
+            {!userInfos ? (
+              <Grid container alignItems="center" justify="center">
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                  <img style={{ width: "200px" }} src="https://media.giphy.com/media/VseXvvxwowwCc/giphy.gif" />
+                </Grid>
+              </Grid>
+            ) : (
+              userInfos.map((userInfo) => (
+                <Grid item xs={5} key={userInfo._id}>
+                  <Paper component="div" className={classes.userActivity}>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Grid container>
+                          <Grid item xs={4} className={classes.userImgContainer}>
+                            <img style={{ width: "100%" }} src={userInfo.img} alt="img" />
+                          </Grid>
+                          <Grid item xs={8} className={classes.userInfoContainer}>
+                            <Typography variant="h5" gutterBottom>
+                              {userInfo.heading}
+                            </Typography>
+                            <Typography variant="subtitle1" gutterBottom>
+                              Email :{userInfo.email}
+                            </Typography>
+                            <Typography variant="h6" gutterBottom>
+                              Date :{userInfo.date}
+                            </Typography>
+                            <Button onClick={() => RemoveBtn(userInfo._id)} className={classes.removeBtn}>
+                              Remove
+                            </Button>
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Paper>
-                  </Grid>
-                ))}
+                    </Grid>
+                  </Paper>
+                </Grid>
+              ))
+            )}
           </Grid>
         </Grid>
       </Grid>

@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import SingleLogo from "../SingleLogo/SingleLogo";
 import { LoginStyle } from "./LoginStyle";
 import * as firebase from "firebase/app";
@@ -22,6 +22,8 @@ function LogIn() {
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
+
+  // handling the google login
   const handleGoogleLogin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -51,23 +53,6 @@ function LogIn() {
         setUserInfo({ ...userInfo, signupError: errorMessage });
       });
   };
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const newUser = { ...userInfo };
-        newUser.signupError = "";
-        setUserInfo(newUser);
-        const { displayName, email } = user;
-        const info = {
-          isLogin: true,
-          name: displayName,
-          email: email,
-        };
-        setUserInfo(info);
-      }
-    });
-  }, []);
   return (
     <Container>
       <SingleLogo />
