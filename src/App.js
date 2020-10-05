@@ -11,6 +11,7 @@ import PrivateRouter from "./Components/PrivateRouter/PrivateRouter";
 import Register from "./Components/Register/Register";
 import SingleUserInfo from "./Components/SingleUserInfo/SingleUserInfo";
 import UsersInfo from "./Components/UsersInfo/UsersInfo";
+import NoMatch from "./Components/NoMatch/NoMatch";
 
 export const UserInfoContext = createContext();
 
@@ -59,6 +60,10 @@ function App() {
           <PrivateRouter path="/register/:heading">
             <Register />
           </PrivateRouter>
+
+          <Route path="*">
+            <NoMatch />
+          </Route>
         </Switch>
       </Router>
     </UserInfoContext.Provider>
