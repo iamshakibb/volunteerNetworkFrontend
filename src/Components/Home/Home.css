@@ -1,0 +1,7 @@
+.HeroBanner {
+  background: linear-gradient(#ffffffb9, #ffffffb9), url("https://i.ibb.co/h1tC3fz/Mask-Group.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 85vh;
+}
